@@ -1,3 +1,4 @@
+// type aliases can be used to create custom types
 function combine(input1, // union types
 input2, // union types
 resultType //'as-number' | 'as-text' // literal types

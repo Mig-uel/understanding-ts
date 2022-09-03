@@ -1,3 +1,19 @@
+// type aliases can be used to create custom types
+
+/* ---- Object Types ---- 
+
+type User = { name: string; age: number; }
+
+function greet(user: {name: string; age: number}) { // simplify to user: User
+  console.log('Hi, I am ' + user.name)
+}
+
+function isOlder(user: {name: string; age: number}, age: number) { // simplify to user: User, age: number
+  return checkAge > user.age
+}
+
+*/
+
 type Combinable = number | string // union types
 type LiteralType = 'as-number' | 'as-text'
 
