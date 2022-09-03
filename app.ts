@@ -11,3 +11,8 @@ function printResult(num: number): void {
 printResult(add(5, 12))
 
 let someValue: undefined // undefined is a valid type
+
+let combinedValues: (a: number, b: number) => number // function type and return type and parameters
+combinedValues = add
+
+console.log(combinedValues(8, 8))

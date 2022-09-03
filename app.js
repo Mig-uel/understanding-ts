@@ -8,3 +8,6 @@ function printResult(num) {
 }
 printResult(add(5, 12));
 var someValue; // undefined is a valid type
+var combinedValues; // function type and return type and parameters
+combinedValues = add;
+console.log(combinedValues(8, 8));
