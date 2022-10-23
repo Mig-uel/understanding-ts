@@ -12,3 +12,7 @@ function countAndDescribe(element) {
     return [element, desc];
 }
 console.log(countAndDescribe(['Sports', 'Cooking']));
+function extractAndConvert(obj, key) {
+    return obj[key];
+}
+extractAndConvert({ name: 'Max' }, 'name');
