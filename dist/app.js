@@ -1,5 +1,5 @@
 "use strict";
-const button = document.querySelector('button');
-button.addEventListener('click', () => {
-    console.log('Clicked!');
-});
+function merge(objA, objB) {
+    return Object.assign(Object.assign({}, objA), objB);
+}
+const mergedObj = merge({ name: 'Max', hobbies: ['Sports'] }, { age: 30 });

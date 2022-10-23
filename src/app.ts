@@ -1,5 +1,6 @@
-const button = document.querySelector('button') as HTMLButtonElement
+// add constraints to generic types
+function merge<T extends object, U extends object>(objA: T, objB: U) {
+  return { ...objA, ...objB }
+}
 
-button.addEventListener('click', () => {
-  console.log('Clicked!')
-})
+const mergedObj = merge({ name: 'Max', hobbies: ['Sports'] }, { age: 30 })
