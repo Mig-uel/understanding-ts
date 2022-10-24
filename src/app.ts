@@ -17,7 +17,18 @@ function Logger(logString: string) {
   }
 }
 
+function WithTemplate(template: string, hookId: string) {
+  return (constructor: any) => {
+    const hookEl = document.getElementById(hookId) as HTMLDivElement
+    const p = new constructor()
+
+    hookEl.innerHTML = template
+    hookEl.querySelector('h1')!.textContent = p.name
+  }
+}
+
 @Logger('LOGGING - PERSON') // call decorator
+@WithTemplate('<h1>My Person Object</h1>', 'app')
 class Person {
   name = 'Max'
 
