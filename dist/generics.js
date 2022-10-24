@@ -43,3 +43,11 @@ objStorage.addItem({ name: 'Max' });
 objStorage.addItem({ name: 'Manu' });
 objStorage.removeItem({ name: 'Manu' });
 console.log(objStorage.getItems());
+function createCourseGoal(title, desc, date) {
+    let courseGoal = {};
+    courseGoal.title = title;
+    courseGoal.desc = desc;
+    courseGoal.completeUntil = date;
+    return courseGoal;
+}
+const names = ['Max', 'Anna'];

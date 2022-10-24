@@ -62,5 +62,25 @@ const numberStorage = new DataStorage<number>() // numberStorage will be of type
 const objStorage = new DataStorage<object>()
 objStorage.addItem({ name: 'Max' })
 objStorage.addItem({ name: 'Manu' })
-objStorage.removeItem({ name: 'Manu' })
+objStorage.removeItem({ name: 'Manu' }) // will not work because object are passed as reference
 console.log(objStorage.getItems())
+
+// generic utility types
+interface CourseGoal {
+  title: string
+  desc: string
+  completeUntil: Date
+}
+
+function createCourseGoal(title: string, desc: string, date: Date): CourseGoal {
+  let courseGoal: Partial<CourseGoal> = {} // partial: makes the interface properties optional for now
+
+  courseGoal.title = title
+  courseGoal.desc = desc
+  courseGoal.completeUntil = date
+
+  return courseGoal as CourseGoal
+}
+
+const names: Readonly<string[]> = ['Max', 'Anna']
+// names.push('Manu') -> error because it is readonly
