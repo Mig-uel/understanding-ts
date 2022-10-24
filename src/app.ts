@@ -18,12 +18,21 @@ function Logger(logString: string) {
 }
 
 function WithTemplate(template: string, hookId: string) {
-  return (constructor: any) => {
-    const hookEl = document.getElementById(hookId) as HTMLDivElement
-    const p = new constructor()
+  return <T extends { new (...args: any[]): { name: string } }>(
+    originalConstructor: T
+  ) => {
+    return class extends originalConstructor {
+      constructor(..._: any[]) {
+        super()
 
-    hookEl.innerHTML = template
-    hookEl.querySelector('h1')!.textContent = p.name
+        const hookEl = document.getElementById(hookId) as HTMLDivElement
+
+        if (hookEl) {
+          hookEl.innerHTML = template
+          hookEl.querySelector('h1')!.textContent = this.name
+        }
+      }
+    }
   }
 }
 
@@ -95,3 +104,5 @@ class Product {
     return this._price * (1 + tax)
   }
 }
+
+// returning and changing a class decorator

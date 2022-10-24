@@ -15,11 +15,17 @@ function Logger(logString) {
     };
 }
 function WithTemplate(template, hookId) {
-    return (constructor) => {
-        const hookEl = document.getElementById(hookId);
-        const p = new constructor();
-        hookEl.innerHTML = template;
-        hookEl.querySelector('h1').textContent = p.name;
+    return (originalConstructor) => {
+        return class extends originalConstructor {
+            constructor(..._) {
+                super();
+                const hookEl = document.getElementById(hookId);
+                if (hookEl) {
+                    hookEl.innerHTML = template;
+                    hookEl.querySelector('h1').textContent = this.name;
+                }
+            }
+        };
     };
 }
 let Person = class Person {
