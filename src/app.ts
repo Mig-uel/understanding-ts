@@ -135,3 +135,82 @@ const p1 = new Printer()
 
 const button = document.querySelector('button') as HTMLButtonElement
 button.addEventListener('click', p1.showMessage)
+
+// validation with decorators
+
+interface ValidatorConfig {
+  [property: string]: {
+    [validProp: string]: string[]
+  }
+}
+
+const registeredValidators: ValidatorConfig = {}
+
+function Required(target: any, propName: string) {
+  registeredValidators[target.constructor.name] = {
+    ...registeredValidators[target.constructor.name],
+    [propName]: [
+      ...(registeredValidators[target.constructor.name]?.[propName] ?? []),
+      'required',
+    ],
+  }
+}
+
+function PositiveNumber(target: any, propName: string) {
+  registeredValidators[target.constructor.name] = {
+    ...registeredValidators[target.constructor.name],
+    [propName]: [
+      ...(registeredValidators[target.constructor.name]?.[propName] ?? []),
+      'positive',
+    ],
+  }
+}
+
+function validate(obj: any) {
+  const objValidatorsConfig = registeredValidators[obj.constructor.name]
+
+  if (!objValidatorsConfig) return true
+
+  let isValid = true
+
+  for (const prop in objValidatorsConfig) {
+    for (const validator of objValidatorsConfig[prop]) {
+      switch (validator) {
+        case 'required':
+          isValid = isValid && !!obj[prop]
+          break
+        case 'positive':
+          isValid = isValid && !!obj[prop]
+          break
+      }
+    }
+  }
+  return isValid
+}
+
+class Course {
+  @Required
+  title: string
+
+  @PositiveNumber
+  price: number
+
+  constructor(t: string, p: number) {
+    this.title = t
+    this.price = p
+  }
+}
+
+const courseForm = document.querySelector('form') as HTMLFormElement
+courseForm.addEventListener('submit', (e) => {
+  e.preventDefault()
+
+  const titleElement = document.getElementById('title') as HTMLInputElement
+  const priceElement = document.getElementById('price') as HTMLInputElement
+
+  const title = titleElement.value
+  const price = +priceElement.value
+
+  const course = new Course(title, price)
+  console.log(course)
+})

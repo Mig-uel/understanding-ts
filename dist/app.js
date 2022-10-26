@@ -113,3 +113,59 @@ __decorate([
 const p1 = new Printer();
 const button = document.querySelector('button');
 button.addEventListener('click', p1.showMessage);
+const registeredValidators = {};
+function Required(target, propName) {
+    var _a, _b;
+    registeredValidators[target.constructor.name] = Object.assign(Object.assign({}, registeredValidators[target.constructor.name]), { [propName]: [
+            ...((_b = (_a = registeredValidators[target.constructor.name]) === null || _a === void 0 ? void 0 : _a[propName]) !== null && _b !== void 0 ? _b : []),
+            'required',
+        ] });
+}
+function PositiveNumber(target, propName) {
+    var _a, _b;
+    registeredValidators[target.constructor.name] = Object.assign(Object.assign({}, registeredValidators[target.constructor.name]), { [propName]: [
+            ...((_b = (_a = registeredValidators[target.constructor.name]) === null || _a === void 0 ? void 0 : _a[propName]) !== null && _b !== void 0 ? _b : []),
+            'positive',
+        ] });
+}
+function validate(obj) {
+    const objValidatorsConfig = registeredValidators[obj.constructor.name];
+    if (!objValidatorsConfig)
+        return true;
+    let isValid = true;
+    for (const prop in objValidatorsConfig) {
+        for (const validator of objValidatorsConfig[prop]) {
+            switch (validator) {
+                case 'required':
+                    isValid = isValid && !!obj[prop];
+                    break;
+                case 'positive':
+                    isValid = isValid && !!obj[prop];
+                    break;
+            }
+        }
+    }
+    return isValid;
+}
+class Course {
+    constructor(t, p) {
+        this.title = t;
+        this.price = p;
+    }
+}
+__decorate([
+    Required
+], Course.prototype, "title", void 0);
+__decorate([
+    PositiveNumber
+], Course.prototype, "price", void 0);
+const courseForm = document.querySelector('form');
+courseForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const titleElement = document.getElementById('title');
+    const priceElement = document.getElementById('price');
+    const title = titleElement.value;
+    const price = +priceElement.value;
+    const course = new Course(title, price);
+    console.log(course);
+});
