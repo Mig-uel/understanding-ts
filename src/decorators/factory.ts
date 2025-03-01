@@ -6,7 +6,21 @@ function Logger(message: string) {
   }
 }
 
-@Logger('LOGGING - PERSON')
+// Advanced Decorator (Meta Programming)
+function WithTemplate(template: string, hookId: string) {
+  return function (target: any) {
+    const hookEl = document.getElementById(hookId)
+    const p = new target()
+
+    if (hookEl) {
+      hookEl.innerHTML = template
+      hookEl.querySelector('h1')!.innerText = p.name
+    }
+  }
+}
+
+// @Logger('LOGGING - PERSON')
+@WithTemplate('<h1>My Person Object</h1>', 'app')
 class Person {
   name = 'Max'
 
