@@ -8,13 +8,21 @@ function Logger(message: string) {
 
 // Advanced Decorator (Meta Programming)
 function WithTemplate(template: string, hookId: string) {
-  return function (target: any) {
-    const hookEl = document.getElementById(hookId)
-    const p = new target()
+  return function <T extends { new (...args: any[]): { name: string } }>(
+    target: T
+  ) {
+    // override constructor
+    return class extends target {
+      constructor(..._: any[]) {
+        super()
 
-    if (hookEl) {
-      hookEl.innerHTML = template
-      hookEl.querySelector('h1')!.innerText = p.name
+        const hookEl = document.getElementById(hookId)
+
+        if (hookEl) {
+          hookEl.innerHTML = template
+          hookEl.querySelector('h1')!.innerText = this.name
+        }
+      }
     }
   }
 }
