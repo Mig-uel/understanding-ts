@@ -31,7 +31,26 @@ class LinkedList<T> {
 
     this.length++
   }
+
+  getNumOfElements() {
+    return this.length
+  }
+
+  print() {
+    let current = this.root
+
+    while (current) {
+      console.log(current.value)
+      current = current.next
+    }
+  }
 }
 
 const numberList = new LinkedList<number>()
-const nameList = new LinkedList<string>()
+numberList.add(10)
+numberList.add(5)
+numberList.add(-3)
+numberList.add(4)
+console.log(numberList.getNumOfElements())
+numberList.print()
+// const nameList = new LinkedList<string>()
