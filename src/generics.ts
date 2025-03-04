@@ -33,4 +33,8 @@ class User<T> {
 
 const user = new User('1')
 
+interface Role<T> {
+  role: T
+}
+
 export {}
