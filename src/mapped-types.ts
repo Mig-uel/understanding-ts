@@ -3,8 +3,8 @@
  */
 
 type Operations = {
-  add: (a: number, b: number) => number
-  subtract: (a: number, b: number) => number
+  add?: (a: number, b: number) => number
+  subtract?: (a: number, b: number) => number
 }
 
 // type Results = {
@@ -13,8 +13,12 @@ type Operations = {
 // }
 
 // this mapped type takes all the properties of some other object type with a value
+// type Results<T> = {
+//   [Key in keyof T]?: number // can make all the mapped properties optional
+// }
+
 type Results<T> = {
-  [Key in keyof T]?: number // can make all the mapped properties optional
+  [Key in keyof T]-?: number // -? removes the optional flag coming from the mapped type
 }
 
 let mathOperations: Operations = {
