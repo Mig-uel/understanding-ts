@@ -14,7 +14,7 @@ type Operations = {
 
 // this mapped type takes all the properties of some other object type with a value
 type Results<T> = {
-  [Key in keyof T]: number
+  [Key in keyof T]?: number // can make all the mapped properties optional
 }
 
 let mathOperations: Operations = {
