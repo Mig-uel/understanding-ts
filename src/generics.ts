@@ -20,7 +20,7 @@ console.log(a, b)
 
 // Generics & Constraints
 
-function mergeObj<T extends object>(a: T, b: T) {
+function mergeObj<T extends object, U extends object>(a: T, b: U) {
   return { ...a, ...b }
 }
 
