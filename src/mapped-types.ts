@@ -3,8 +3,8 @@
  */
 
 type Operations = {
-  add?: (a: number, b: number) => number
-  subtract?: (a: number, b: number) => number
+  add: (a: number, b: number) => number
+  subtract: (a: number, b: number) => number
 }
 
 // type Results = {
@@ -17,8 +17,18 @@ type Operations = {
 //   [Key in keyof T]?: number // can make all the mapped properties optional
 // }
 
+// type Results<T> = {
+//   [Key in keyof T]-?: number // -? removes the optional flag coming from the mapped type
+// }
+
+// type Results<T> = {
+//   -readonly [Key in keyof T]?: number
+//   // can make all the mapped properties optional and remove the readonly flag
+// }
+
 type Results<T> = {
-  [Key in keyof T]-?: number // -? removes the optional flag coming from the mapped type
+  readonly [Key in keyof T]?: number
+  // can make all the mapped properties optional and readonly
 }
 
 let mathOperations: Operations = {
