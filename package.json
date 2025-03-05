@@ -4,5 +4,8 @@
   },
   "scripts": {
     "tsc": "tsc -w"
+  },
+  "dependencies": {
+    "zod": "^3.24.2"
   }
 }
