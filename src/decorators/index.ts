@@ -58,9 +58,25 @@ function FieldLogger(target: undefined, context: ClassFieldDecoratorContext) {
   }
 }
 
+// Decorator Factory
+function Replacer<T>(value: T) {
+  return function (target: undefined, context: ClassFieldDecoratorContext) {
+    console.log(target)
+    console.log(context)
+
+    // change field
+    return (initialValue: any) => {
+      console.log('--- Initial Value ---', initialValue)
+
+      return value
+    }
+  }
+}
+
 @Logger
 class Person {
-  @FieldLogger
+  // @FieldLogger
+  @Replacer('')
   name = 'Max'
 
   @AutoBind
