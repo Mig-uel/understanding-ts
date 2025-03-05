@@ -47,8 +47,20 @@ function AutoBind(target: Function, context: ClassMemberDecoratorContext) {
   }
 }
 
+function FieldLogger(target: undefined, context: ClassFieldDecoratorContext) {
+  console.log(target)
+  console.log(context)
+
+  // change field
+  return (initialValue: any) => {
+    console.log('--- Initial Value ---')
+    return ''
+  }
+}
+
 @Logger
 class Person {
+  @FieldLogger
   name = 'Max'
 
   @AutoBind
