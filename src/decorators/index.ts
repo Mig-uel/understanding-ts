@@ -35,16 +35,26 @@ function Logger<T extends new (...args: any[]) => any>(
   }
 }
 
+function AutoBind(target: Function, context: ClassMemberDecoratorContext) {
+  context.addInitializer(function (this: any) {
+    this[context.name] = this[context.name].bind(this)
+  })
+}
+
 @Logger
 class Person {
   name = 'Max'
 
+  @AutoBind
   greet() {
     console.log(`Hi, I am ${this.name}`)
   }
 }
 
 const max = new Person()
-const julie = new Person()
+
+const greet = max.greet
+
+greet()
 
 export {}
