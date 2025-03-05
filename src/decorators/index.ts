@@ -11,7 +11,24 @@
  * - Class Decorators
  * - Method Decorators
  * - Field Decorators
- * - Getter Decorators 
+ * - Getter Decorators
  * - Setter Decorators
  *
  */
+
+function Logger(target: any, context: ClassDecoratorContext) {
+  console.log('Logger Decorator')
+  console.log(target) // class Person
+  console.log(context) // {kind, name, metadata, addInitializer}
+}
+
+@Logger
+class Person {
+  name = 'Max'
+
+  greet() {
+    console.log(`Hi, I am ${this.name}`)
+  }
+}
+
+export {}
