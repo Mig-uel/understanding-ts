@@ -39,6 +39,12 @@ function AutoBind(target: Function, context: ClassMemberDecoratorContext) {
   context.addInitializer(function (this: any) {
     this[context.name] = this[context.name].bind(this)
   })
+
+  // replace function
+  return function (this: any) {
+    console.log('--- Executing Original Function ---')
+    target.apply(this)
+  }
 }
 
 @Logger
