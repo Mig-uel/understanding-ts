@@ -20,14 +20,18 @@ function Logger<T extends new (...args: any[]) => any>(
   target: T,
   context: ClassDecoratorContext
 ) {
-  console.log('Logger Decorator')
+  console.log('--- Logger Decorator ---')
   console.log(target) // class Person
   console.log(context) // {kind, name, metadata, addInitializer}
 
   // returning a new class
   return class extends target {
     // original class does not get replaced but merged
-    age = 35
+    constructor(...args: any[]) {
+      super(...args)
+      console.log('--- Class Constructed ---')
+      console.log(this)
+    }
   }
 }
 
@@ -41,6 +45,6 @@ class Person {
 }
 
 const max = new Person()
-console.log(max)
+const julie = new Person()
 
 export {}
